@@ -14,7 +14,6 @@ public class SubjectDTO {
     String name;
 
     @NotNull(message = "Campo obrigatório")
-    @NotEmpty(message = "A nota não pode estar vazia.")
     @DecimalMax(value = "10.0", message = "A nota máxima da disciplina é de 10 pontos.")
     @DecimalMin(value = "0.0", message = "A nota mínima para a disciplina é de 0 pts.")
     Double score;
