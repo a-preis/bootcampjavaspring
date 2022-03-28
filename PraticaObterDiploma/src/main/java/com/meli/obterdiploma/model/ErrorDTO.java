@@ -1,5 +1,4 @@
-package br.com.meli.springdemo.dto;
-
+package com.meli.obterdiploma.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

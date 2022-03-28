@@ -2,6 +2,8 @@ package com.meli.obterdiploma.model;
 
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 import java.util.List;
@@ -20,5 +22,5 @@ public class StudentDTO {
 
     @NotNull(message = "Campo obrigatório")
     @NotEmpty(message = "A lista não pode estar vazia.")
-    List<SubjectDTO> subjects;
+    List<@Valid SubjectDTO> subjects;
 }
