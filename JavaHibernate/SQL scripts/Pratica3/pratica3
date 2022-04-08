@@ -1,0 +1,68 @@
+-- Listar os dados dos autores.
+
+SELECT * FROM aluno;
+
+-- Listar nome e idade dos alunos
+
+SELECT NOME, IDADE FROM ALUNO;
+
+-- Quais alunos pertencem à carreira de informática?
+
+SELECT * FROM ALUNO WHERE CARREIRA = 'informática'
+
+-- Quais autores são de nacionalidade francesa ou italiana?
+
+SELECT * FROM AUTOR WHERE NACIONALIDADE = 'francesa'OR NACIONALIDADE = 'italiana';
+
+-- Que livros não são da área da internet?
+
+SELECT * FROM LIVRO WHERE AREA <> 'internet';
+
+-- Listar os livros da editora Salamandra.
+
+SELECT * FROM LIVROS WHERE EDITORA = 'Salamandra';
+
+-- Listar os dados dos alunos cuja idade é maior que a média.????????
+
+SELECT NOME, IDADE FROM ALUNO GROUP BY NOME, IDADE HAVING IDADE > AVG(IDADE);
+
+-- Listar os nomes dos alunos cujo sobrenome começa com a letra G.
+
+SELECT NOME FROM ALUNO WHERE SOBRENOME LIKE 'G%';
+
+-- Listar os autores do livro "O Universo: Guia de Viagem". (Apenas nomes
+-- devem ser listados.)
+
+SELECT NOME FROM AUTOR, LIVRO_AUTOR, LIVRO 
+WHERE AUTOR.IDAUTOR = LIVRO_AUTOR.IDAUTOR AND LIVRO.IDLIVRO = LIVRO_AUTOR.IDLIVRO AND LIVRO.TITULO = 'O Universo: Guia de Viagem';
+
+-- Listar autores que tenham nacionalidade italiana ou argentina.
+
+SELECT * FROM AUTOR WHERE NACIONALIDADE = 'argentina' OR NACIONALIDADE = 'italiana';
+
+-- Que livros foram emprestados ao leitor “Filippo Galli”?
+
+SELECT TITULO 
+FROM LIVRO, ALUNO, EMPRESTIMO 
+WHERE LIVRO.IDLIVRO = EMPRESTIMO.IDLIVRO 
+AND ALUNO.IDALUNO = EMPRESTIMO.IDLEITOR 
+AND ALUNO.NOME = 'Filippo' 
+AND ALUNO.SOBRENOME = 'Galli';
+
+-- Listar o nome do aluno mais novo.
+
+SELECT NOME, IDADE
+FROM ALUNO
+WHERE IDADE = (SELECT MIN(IDADE) FROM ALUNO);
+
+-- Listar os nomes dos alunos a quem os livros de Banco de Dados foram
+-- emprestados.
+
+SELECT NOME FROM ALUNO, EMPRESTIMO, LIVRO WHERE ALUNO.IDALUNO = EMPRESTIMO.IDLEITOR AND LIVRO.IDLIVRO = EMPRESTIMO.IDLIVRO AND LIVRO.AREA = 'Banco de Dados';
+
+-- Listar os livros que pertencem ao autor J.K. Rowling.
+
+SELECT * FROM LIVRO, AUTOR, LIVRO_AUTOR WHERE LIVRO.IDLIVRO = LIVRO_AUTOR.IDLIVRO AND LIVRO_AUTOR.IDAUTOR = AUTOR.IDAUTOR AND AUTOR.NOME = 'J.K. Rowling';
+
+-- 
+

@@ -1,0 +1,44 @@
+-- Selecione o nome, cargo e localização dos departamentos onde os vendedores
+-- trabalham.
+
+SELECT EMPLOYE.FIRST_NAME, EMPLOYE.LAST_NAME, EMPLOYE.OFFICE, DEPARTMENT.LOCATION
+FROM DEPARTMENT
+INNER JOIN EMPLOYE
+ON EMPLOYE.DEPT_ID = DEPARTMENT.DEPT_ID;
+
+-- Visualize departamentos com mais de cinco funcionários.
+
+SELECT DEPARTMENT.NAME, COUNT(EMPLOYE.EMPLOYE_ID)
+FROM DEPARTMENT, EMPLOYE
+WHERE EMPLOYE.DEPT_ID = DEPARTMENT.DEPT_ID
+GROUP BY DEPARTMENT.NAME
+HAVING COUNT(EMPLOYE.EMPLOYE_ID)>5;
+
+-- Exiba o nome, salário e nome do departamento dos funcionários que têm o mesmo
+-- cargo que 'Mito Barchuk'.
+
+SELECT EMPLOYE.FIRST_NAME, EMPLOYE.LAST_NAME, EMPLOYE.SALARY, DEPARTMENT.NAME
+FROM EMPLOYE
+INNER JOIN DEPARTMENT
+ON EMPLOYE.DEPT_ID = DEPARTMENT.DEPT_ID
+WHERE EMPLOYE.OFFICE = 'Presidente';
+
+-- Mostre os dados dos funcionários que trabalham no departamento de contabilidade,
+-- ordenados por nome.
+
+SELECT *
+FROM EMPLOYE
+WHERE DEPT_ID = 'D-000-3'
+ORDER BY EMPLOYE.FIRST_NAME;
+
+-- Mostre o nome do funcionário que tem o menor salário.
+
+SELECT FIRST_NAME
+FROM EMPLOYE
+WHERE SALARY IN (SELECT MAX(SALARY) FROM EMPLOYE);
+
+-- Mostre os dados do funcionário que tem o maior salário no departamento 'Vendas'.
+
+SELECT *
+FROM EMPLOYE
+WHERE SALARY IN (SELECT MAX(SALARY) FROM EMPLOYE WHERE DEPT_ID = 'D-000-4');

@@ -3,6 +3,7 @@ package com.meli.obterdiploma;
 import com.meli.obterdiploma.model.StudentDTO;
 import com.meli.obterdiploma.model.SubjectDTO;
 import com.meli.obterdiploma.repository.IStudentDAO;
+import com.meli.obterdiploma.repository.StudentDAO;
 import com.meli.obterdiploma.service.StudentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
 
@@ -19,12 +21,12 @@ import java.util.Arrays;
 public class StudentServiceTest {
 
     @Mock
-    private IStudentDAO studentDAO;
+    private StudentDAO studentDAO;
 
     @InjectMocks
     private StudentService studentService;
 
-    @InjectMocks
+    @Mock
     StudentDTO studentDTO = new StudentDTO();;
     @InjectMocks
     SubjectDTO subjectDTO = new SubjectDTO();
@@ -45,6 +47,7 @@ public class StudentServiceTest {
 
     @Test
     public void testIfStudentCanBeSaved(){
-
+        Mockito.doNothing().when(studentDAO).save(studentDTO);
+        Mockito.verify(studentDTO).getId();
     }
 }
