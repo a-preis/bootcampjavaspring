@@ -1,0 +1,57 @@
+-- Mostrar todos os registros da tabela de filmes.
+
+SELECT * FROM MOVIES;
+
+-- Mostrar o nome, sobrenome e classificação de todos os atores.
+
+SELECT FIRST_NAME, LAST_NAME, RATING FROM ACTORS;
+
+-- Mostrar o título de todas as séries e use alias para que tanto o nome da tabela
+-- quanto o campo estejam em Português.
+
+SELECT TITLE AS TÍTULOS FROM SERIES as séries;
+
+-- Mostrar o nome e sobrenome dos atores cuja classificação é superior a 7,5.
+
+SELECT FIRST_NAME, LAST_NAME FROM ACTORS WHEN RATING > 7.5;
+
+-- Mostrar o título dos filmes, a classificação e os prêmios dos filmes com classificação
+-- superior a 7,5 e com mais de dois prêmios.
+
+SELECT TITLE, RATING, AWARDS FROM MOVIES WHERE (RATING > 7.5) AND (AWARDS > 2);
+
+-- Mostrar o título dos filmes e a classificação ordenados por classificação em ordem
+-- crescente.
+
+SELECT TITLE, RATING FROM MOVIES ORDER BY RATING;
+
+-- Mostrar os títulos dos três primeiros filmes no banco de dados.
+
+SELECT TITLE FROM MOVIES LIMIT(3);
+
+-- Mostrar os 5 melhores filmes com a classificação mais alta.
+
+SELECT TITLE FROM MOVIES ORDER BY RATING DESC LIMIT 5;
+
+-- Listar os 10 primeiros atores.
+
+SELECT * FROM ACTORS LIMIT 10;
+
+-- Mostrar o título e a classificação de todos os filmes cujo título é Toy Story.
+
+SELECT TITLE, RATING FROM MOVIES WHERE TITLE='Toy Story';
+
+-- Mostrar todos os atores cujos nomes começam com Sam.
+
+SELECT * FROM ACTORS WHERE FIRST_NAME LIKE 'Sam%';
+
+-- Mostrar o título dos filmes que saíram entre 2004 e 2008.
+
+SELECT TITLE FROM MOVIES WHERE RELEASE_DATE BETWEEN '2004-01-01 00:00:00' AND '2008-12-30 00:00:00';
+
+-- Mostrar o título dos filmes com classificação superior a 3, com mais de 1 prêmio e
+-- com data de lançamento entre 1988 e 2009. Ordenar os resultados por
+-- classificação.
+
+SELECT TITLE FROM MOVIES WHERE (RATING > 3) AND (AWARDS > 1) AND (RELEASE_DATE BETWEEN '1988-01-01 00:00:00' AND '2009-01-01 00:00:00') ORDER BY RATING;
+

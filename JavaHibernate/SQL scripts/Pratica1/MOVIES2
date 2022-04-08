@@ -1,0 +1,43 @@
+-- Adicione um filme à tabela de filmes.
+
+INSERT INTO MOVIES VALUES (22,NULL,NULL,'Crepúsculo',7.9,3,'2010-12-04 00:00:00',120,5);
+
+-- Adicione um gênero à tabela de gêneros.
+
+INSERT INTO genres VALUES (13,'2016-07-04 03:00:00',NULL,'Comédia Romantica',1,1);
+
+-- Associe o filme do ponto 1. com o gênero criado no ponto 2.
+
+UPDATE MOVIES SET GENRE_ID = 2 WHERE ID = 1;
+
+-- Modifique a tabela de atores para que pelo menos um ator tenha o filme adicionado
+-- no ponto 1 como favorito.
+
+UPDATE ACTORS SET FAVORITE_MOVIE_ID = 1 WHERE ID = 3;
+
+-- Crie uma tabela temporária da tabela filmes.
+
+CREATE TEMPORARY TABLE MOVIES_T("id" SERIAL,
+  "created_at" timestamp NULL DEFAULT NULL,
+  "updated_at" timestamp NULL DEFAULT NULL,
+  "title" varchar(500) NOT NULL,
+  "rating" decimal(3,1)  NOT NULL,
+  "awards" int  NOT NULL DEFAULT '0',
+  "release_date" date NOT NULL,
+  "length" int  DEFAULT NULL,
+  "genre_id" int  DEFAULT NULL,
+  PRIMARY KEY ("id"));
+
+-- Elimine dessa tabela temporária todos os filmes que ganharam menos de 5 prêmios.
+
+delete from movies_T where awards < 5;
+
+-- Obtenha a lista de todos os gêneros que possuem pelo menos um filme.
+
+SELECT * FROM GENRES, MOVIES
+WHERE GENRES.ID = MOVIES.genre_id AND MOVIES.GENRE_ID IS NOT NULL;
+
+-- Obtenha a lista de atores cujo filme favorito ganhou mais de 3 prêmios.
+
+
+

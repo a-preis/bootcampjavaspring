@@ -1,0 +1,66 @@
+-- Como é chamado um JOIN em um banco de dados e para que é usado?
+-- INNER JOIN é o mais utilizado em banco de dados, e é usado para buscar os dados presentes em várias tabelas
+-- de forma combinada com base em uma ou mais condições comuns.
+
+-- Explique os tipos de JOIN.
+-- INTERSEÇÃO: inner join, apenas os valores que pertencem a ambas entidades.
+-- UNIÃO: todos os valores de todas as entidades.
+-- DIFERENÇA LEFT/RIGHT: apenas os valores que pertencem a tabela left/right.
+
+-- Para que serve o GROUP BY?
+-- Gera um único registro para um grupo de linhas que compartilham a coluna indicada pelo GROUP BY.
+
+-- Para que serve o HAVING?
+-- Para gerar funções de agregação que irão filtrar os valores do GROUP BY.
+
+-- Escreva uma consulta genérica para cada um dos seguintes diagramas:
+
+SELECT MOVIES.*, ACTORS.FIRST_NAME, ACTORS.LAST_NAME FROM MOVIES INNER JOIN ACTORS ON MOVIES.ID = ACTORS.FAVORITE_MOVIE_ID;
+
+SELECT * FROM MOVIES LEFT JOIN ACTORS ON MOVIES.ID = ACTORS.FAVORITE_MOVIE_ID;
+
+-- Mostrar o título e o nome do gênero de todas as séries.
+
+ SELECT series.TITLE, genres.name FROM SERIES INNER JOIN GENRES ON SERIES.GENRE_ID = GENRES.ID;
+
+-- Mostrar o título dos episódios, o nome e sobrenome dos atores que trabalham em
+-- cada um deles.
+
+SELECT ACTORS.FIRST_NAME, ACTORS.LAST_NAME, EPISODES.TITLE 
+FROM ACTOR_EPISODE
+INNER JOIN EPISODES
+ON ACTOR_EPISODE.EPISODE_ID = EPISODES.ID
+INNER JOIN ACTORS
+ON ACTORS.ID = ACTOR_EPISODE.ACTOR_ID
+GROUP BY ACTORS.FIRST_NAME, ACTORS.LAST_NAME, EPISODES.TITLE;
+
+
+-- Mostrar o título de todas as séries e o número total de temporadas que cada uma
+-- delas possui.
+
+SELECT COUNT(SEASONS.ID), SERIES.TITLE 
+FROM SERIES INNER JOIN SEASONS 
+ON SERIES.ID = SEASONS.serie_id 
+GROUP BY SERIES.TITLE;
+
+-- Mostrar o nome de todos os gêneros e o número total de filmes de cada um, desde
+-- que seja maior ou igual a 3.
+
+SELECT GENRES.NAME, COUNT(MOVIES.ID)
+FROM GENRES INNER JOIN MOVIES 
+ON GENRES.ID = MOVIES.GENRE_ID 
+GROUP BY GENRES.NAME;
+
+-- Mostrar apenas o nome e sobrenome dos atores que atuam em todos os filmes de
+-- Star Wars e que estes não se repitam.
+
+SELECT DISTINCT ACTORS.FIRST_NAME, ACTORS.LAST_NAME
+FROM ACTOR_MOVIE 
+INNER JOIN ACTORS
+ON ACTORS.ID = ACTOR_MOVIE.ACTOR_ID
+INNER JOIN MOVIES
+ON ACTOR_MOVIE.MOVIE_ID = MOVIES.ID
+WHERE MOVIES.TITLE LIKE '%Guerra nas Estrelas%';
+
+
+
