@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.models.Joia;
+import com.example.demo.models.JoiaDTO;
 import com.example.demo.service.JoiaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,9 +19,10 @@ public class JoiaController {
     JoiaService joiaService;
 
     @PostMapping("/joia/inserir")
-    public ResponseEntity<Integer> saveJoia(@Valid @RequestBody Joia joia) {
+    public ResponseEntity<JoiaDTO> saveJoia(@Valid @RequestBody Joia joia) {
         Joia joiaSalva = joiaService.saveJoia(joia);
-        return new ResponseEntity(joiaSalva.getId(), HttpStatus.CREATED);
+        JoiaDTO joiaDTO = new JoiaDTO(joiaSalva.getId(), "Joia Salva!");
+        return new ResponseEntity(joiaDTO, HttpStatus.CREATED);
     }
 
     @GetMapping("/joias")
@@ -30,10 +32,10 @@ public class JoiaController {
     }
 
     @DeleteMapping("joia/excluir")
-    private ResponseEntity<Integer> deleteJoia(@RequestParam Integer id) {
+    private ResponseEntity<JoiaDTO> deleteJoia(@RequestParam Integer id) {
         Optional<Joia> joia = joiaService.findJoiaById(id);
-        Integer idDeletada = joiaService.deleteJoia(joia.get());
-        return ResponseEntity.ok(idDeletada);
+        JoiaDTO joiaDTO = new JoiaDTO(joia.get().getId(), "Joia excluída");
+        return new ResponseEntity(joiaDTO, HttpStatus.OK);
     }
 
     @PatchMapping("joia/atualziar")
