@@ -33,8 +33,9 @@ public class JoiaController {
 
     @DeleteMapping("joia/excluir")
     private ResponseEntity<JoiaDTO> deleteJoia(@RequestParam Integer id) {
-        Optional<Joia> joia = joiaService.findJoiaById(id);
-        JoiaDTO joiaDTO = new JoiaDTO(joia.get().getId(), "Joia excluída");
+        Joia joiaDelete = joiaService.findJoiaById(id).get();
+        joiaService.deleteJoia(joiaDelete);
+        JoiaDTO joiaDTO = new JoiaDTO(joiaDelete.getId(), "Joia excluída");
         return new ResponseEntity(joiaDTO, HttpStatus.OK);
     }
 

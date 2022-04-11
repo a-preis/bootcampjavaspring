@@ -27,9 +27,8 @@ public class JoiaService {
         return joiaRepository.findById(id);
     }
 
-    public Integer deleteJoia(Joia joia) {
+    public void deleteJoia(Joia joia) {
         joiaRepository.delete(joia);
-        return joia.getId();
     }
 
     public Joia updateJoiaById(Joia joia, Integer id) {
